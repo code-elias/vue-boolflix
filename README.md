@@ -1,5 +1,9 @@
 # vue-boolfix
 
+## Description of the project
+
+This is a replica of a movie sharing website similar to Netflix or Disney+. 
+
 ## Project setup
 ```
 npm install
