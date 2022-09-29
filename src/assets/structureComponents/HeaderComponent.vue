@@ -1,6 +1,6 @@
 <template>
   <header>
-    <SearchBar @searchText="searchMovie" />
+    <SearchBar @searchText="searching" />
   </header>
 </template>
 
@@ -13,17 +13,9 @@ import SearchBar from "@/assets/utilityComponents/SearchBar_ExpandibleComponent.
 export default {
     name: "HeaderComponent",
 
-    data() {
-        return {
-            searchMovieInput: '',
-        }
-    },
-
     methods: {
-        searchMovie(inputText) {
-            this.searchMovieInput = inputText;
-            console.log("TESTING - searchMovie[HEADER]:", this.searchMovieInput);
-            this.$emit('search', this.searchMovieInput);
+        searching(inputText) {
+            this.$emit('search', inputText);
         }
     },
       

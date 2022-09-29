@@ -27,7 +27,7 @@ export default {
         if (this.searchMovie.trim() === this.inputSearch.trim()) return;
 
         this.searchMovie = this.inputSearch.trim(); // Trim method added to keep the output streamlined
-        console.log("DEBUG - Searching Text...", this.searchMovie);
+        
         this.$emit('searchText', this.searchMovie); 
     }
   }

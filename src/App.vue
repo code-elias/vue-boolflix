@@ -3,79 +3,106 @@
     <h1>Replica of a Movie Sharing Website</h1>
     <p>By Elias Mahfuzul Golam</p>
     <p>Project for Boolean S.r.l.</p>
+    <font-awesome-icon :icon="['fas', 'star']" />
+    <font-awesome-icon :icon="['far', 'star']"  />
+    <font-awesome-icon icon="fa-regular fa-star-half-stroke" />
+    <font-awesome-icon :icon="['far', 'star-half-stroke']" />
 
-    <HeaderComponent @search="setNewQuery"/>
-    <MainComponent :moviesData="moviesSearchResults"/>
+    <HeaderComponent @search="setNewQuery" />
+    <MainComponent :moviesData="moviesSearchResults" :tvSeriesData="tvSearchResults" />
     <FooterComponent />
   </div>
 </template>
 
 <!-- SCRIPT -->
 <script>
+// Import Libraries
 import axios from "axios";
 
+// COMPONENTS
 import HeaderComponent from './assets/structureComponents/HeaderComponent.vue';
 import MainComponent from './assets/structureComponents/MainComponent.vue';
 import FooterComponent from './assets/structureComponents/FooterComponent.vue';
 
-// Import Libraries
+
 export default {
     name: "App",
 
     data() {
       return {
         moviesSearchResults: [],
-        tvSeriesSearchResults: [],
+        tvSearchResults: [],
 
         // API
-        API_KEY: "api_key=6e12bf2de8d8ec96f13c4937cd273f69",
+        TMDB_API: {
+          api_key: "api_key=6e12bf2de8d8ec96f13c4937cd273f69",
 
-        TMDB_API: "https://api.themoviedb.org/3/",
-        TRENDING: "trending/all/week?",
-        SEARCH_MOVIE: "search/movie?",
-        SEARCH_TV: "search/tv?",
-        SEARCH_QUERY: "&query=",
-        
-        language: "&language=it IT"
+          base_url: "https://api.themoviedb.org/3/",
+          trending_movies: "trending/movie/week?",
+          trending_tv: "trending/tv/week?",
+          search_movie: "search/movie?",
+          search_tv: "search/tv?",
+          search_query: "&query=",
+          
+          language: "&language=it IT"
+        }
       }
     },
 
     created() {
-      this.setNewQuery();
+      this.setNewQuery(); // Initialize Default Loading
     },
 
     methods: {
       setNewQuery(query) {
+        // Query new searches
+        this.search(query, 'movie');
+        this.search(query, 'tv');
+      },
+
+      search(query, type) {
         axios
-          .get(this.getQuery(query, this.SEARCH_MOVIE))
-          .then(response => {
-            console.log("TESTING - setNewQuery[APP] Movie: ", query);
-            // console.log("TESTING Response:", response);
-            this.moviesSearchResults = response.data.results;
-            console.log("TESTING Response MOVIES:", this.moviesSearchResults);
+          .get(this.getQuery(query, type))
+          .then((response) => {
+            const searchResults = this.processSearchData(response);
+
+            if (type === 'tv') {
+              this.tvSearchResults = searchResults;
+            }
+            else if (type === 'movie') {
+              this.moviesSearchResults = searchResults;
+            }
           })
           .catch(error => {
-            console.warn("Error Found:", error);
+            console.warn("Error Found while searching Movies:", error);
         });
-
-        axios
-          .get(this.getQuery(query, this.SEARCH_TV))
-          .then(response => {
-            console.log("TESTING - setNewQuery[APP] TV: ", query);
-            // console.log("TESTING Response:", response);
-            this.tvSeriesSearchResults = response.data.results;
-            console.log("TESTING Response TV:", this.tvSeriesSearchResults);
-          })
-          .catch(error => {
-            console.warn("Error Found:", error);
-        });
-
       },
 
       getQuery(query, queryType) {
+        const {api_key, base_url, search_query, search_movie, search_tv, trending_movies, trending_tv} = this.TMDB_API;
+
+        const trending = queryType === 'tv' ? trending_tv : trending_movies;
+        const mediaToSearch = queryType === 'tv' ? search_tv : search_movie;
+
         return query ? 
-          this.TMDB_API + queryType + this.API_KEY + this.SEARCH_QUERY + query.toLowerCase()
-          : this.TMDB_API + this.TRENDING + this.API_KEY;
+          base_url + mediaToSearch + api_key + search_query + query.toLowerCase()
+          : base_url + trending + api_key;
+      },
+
+      processSearchData({status, data}) {
+        if (status !== 200) return; // Guard Statement
+        return data.results;
+
+        // Query Format:
+        /* 
+        data: 
+        {
+          "page": Number,
+          "results": Array of Objects (movie),
+          "total_pages": Number,
+          "total_results": Number
+        }
+        */
       }
     },
 

@@ -1,13 +1,26 @@
 <template>
   <section>
-    <h2>Movies!</h2>
+    <h2>{{ type }}</h2>
 
     <ul>
-        <li v-for="movie in movies" :key="movie.id"
+        <li v-for="item in contentArray" :key="item.id"
         >
-            <p>{{ getTitle(movie) }}</p>
-            <p>{{ getVotes(movie) }}</p>
-            <img :src="getFlagSrc(movie)" alt="">
+            <p>{{ getTitle(item) }}</p>
+            <p>{{ getVotes(item) }}</p>
+            <div class="rating">
+              <font-awesome-icon v-for="star in getStars(item).stars" :key="'Star' + star"
+                :icon="['fas', 'star']"  
+              />
+              <font-awesome-icon v-for="halfStar in getStars(item).halfStars" :key="'Half' + halfStar"
+                :icon="['far', 'star-half-stroke']" 
+              />
+
+              <font-awesome-icon v-for="empty in getStars(item).empty" :key="'Empty' + empty"
+                :icon="['far', 'star']" 
+              />
+            </div>
+            <img :src="getFlagSrc(item)" alt="">
+            <img class="poster" :src="getPosterSrc(item)" alt="Poster">
         </li>
     </ul>
   </section>
@@ -20,48 +33,127 @@ export default {
 
   data() {
     return {
-        FLAG_API: "https://countryflagsapi.com/",
-        API_FILETYPE: "png/",
+      FLAG_API: {
+        base_url: "https://countryflagsapi.com/",
+        fileType: "png/",
+      },
+
+      TMDB_IMG_API: {
+        base_url: "https://image.tmdb.org/t/p/",
+        file_size: "w500/",
+      }
     }
   },
 
   props: {
-    movies: Array,
+    type: String,
+
+    contentArray: Array,
+    // Data Format: Array of Objects (item)
+    /*
+    [
+      {
+        ...
+        title: String,
+        original_title: String,
+        name: String,
+        original_name: String,
+
+        overview: String(description),
+
+        backdrop_path: String(url),
+        poster_path: String(url),
+
+        vote_average: Number,
+        vote_count:
+      }
+    ] 
+    */
   },
 
   methods: {
-    getTitle(movie) {
-        if(movie.title) return movie.title;
-        if(movie.original_title) return movie.original_title;
-        if(movie.name) return movie.name;
-        if(movie.original_name) return movie.original_name;
+    getTitle(media) {
+      if(media.title) return media.title;
+      if(media.original_title) return media.original_title;
+      if(media.name) return media.name;
+      if(media.original_name) return media.original_name;
     },
 
     getVotes({vote_average, vote_count}) {
-        return `${vote_average} (${vote_count})`
+      return `${vote_average} (${vote_count})`
     },
 
-    getFlagSrc(movie) {
-        return this.FLAG_API + this.API_FILETYPE + this.flagID(movie.original_language);
+    getRating(media) {
+      let num = parseFloat(media.vote_average) / 2;
+      let rating = parseInt(num % 10);
+      
+      num -= parseInt(num % 10);
+
+      if(num <= 0.25) {
+        num = 0;
+      }
+      else if (num > 0.25 && num < 0.75) {
+        num = 0.5;
+      }
+      else {
+        num = 1;
+      }
+      
+      rating += num;
+      return rating;
+    },
+
+    getStars(media) {
+      const TOTAL_STARS = 5;
+
+      let stars = this.getRating(media);
+      const halfStars = Number.isInteger(stars) ? 0 : 1;
+      stars = parseInt(stars);
+
+      console.log("Stars Full:", stars, "half:", halfStars);
+
+      return {
+        "stars": stars,
+        "halfStars": halfStars,
+        "empty": TOTAL_STARS - stars - halfStars,
+      }
+    },
+
+    getPosterSrc(media){
+      const {base_url, file_size} = this.TMDB_IMG_API;
+      return base_url + file_size + media.poster_path;
+    },
+
+    getFlagSrc(media) {
+      const {base_url, fileType} = this.FLAG_API;
+      return base_url + fileType + this.flagID(media.original_language);
     }, 
 
     flagID(flag) {
-        switch(flag) {
-            case 'en': {
-                return 'gb';
-            }
-            case 'ja': {
-                return 'jp';
-            }
-            default: {
-                return flag;
-            }
-        }
+      switch(flag) {
+          case 'en': {
+              return 'gb';
+          }
+          case 'ja': {
+              return 'jp';
+          }
+          default: {
+              return flag;
+          }
+      }
     }
   }
 }
 </script>
 
-<style>
 
+<!-- STYLES: SCSS -->
+<style lang="scss" scoped>
+img {
+  width: 20px;
+}
+
+.poster {
+  width: 200px;
+}
 </style>
