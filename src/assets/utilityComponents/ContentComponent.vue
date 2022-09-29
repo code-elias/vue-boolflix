@@ -33,6 +33,8 @@ export default {
 
   data() {
     return {
+      TOTAL_STARS: 5,
+
       FLAG_API: {
         base_url: "https://countryflagsapi.com/",
         fileType: "png/",
@@ -84,7 +86,7 @@ export default {
     },
 
     getRating(media) {
-      let num = parseFloat(media.vote_average) / 2;
+      let num = parseFloat(media.vote_average) / (10 / this.TOTAL_STARS);
       let rating = parseInt(num % 10);
       
       num -= parseInt(num % 10);
@@ -104,8 +106,6 @@ export default {
     },
 
     getStars(media) {
-      const TOTAL_STARS = 5;
-
       let stars = this.getRating(media);
       const halfStars = Number.isInteger(stars) ? 0 : 1;
       stars = parseInt(stars);
@@ -115,7 +115,7 @@ export default {
       return {
         "stars": stars,
         "halfStars": halfStars,
-        "empty": TOTAL_STARS - stars - halfStars,
+        "empty": this.TOTAL_STARS - stars - halfStars,
       }
     },
 

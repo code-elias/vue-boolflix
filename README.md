@@ -10,6 +10,10 @@ This is a replica of a movie sharing website similar to Netflix or Disney+.
 
 Add Movie Cover and Stars (rating)
 
+#### 0.4.8: Added TOTAL_STARS constant for easy changes
+
+* TOTAL_STARS in data allows to easily switch between 5 and 10 stars by simply modifying one attribute
+
 #### 0.4.7: Added empty stars
 
 #### 0.4.6: Added full and halfStars
