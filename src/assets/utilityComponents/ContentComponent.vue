@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 
 export default {
   name: 'ContentComponent',
@@ -43,15 +42,21 @@ export default {
     },
 
     getFlagSrc(movie) {
-        console.log("Searching Flag", this.FLAG_API + this.API_FILETYPE + movie.original_language);
-        axios
-            .get(this.FLAG_API + this.API_FILETYPE + movie.original_language)
-            .then(response => {
-                console.log("FLAG", response);
-            })
-            .catch(error => {
-                console.warn(error);
-        });
+        return this.FLAG_API + this.API_FILETYPE + this.flagID(movie.original_language);
+    }, 
+
+    flagID(flag) {
+        switch(flag) {
+            case 'en': {
+                return 'gb';
+            }
+            case 'ja': {
+                return 'jp';
+            }
+            default: {
+                return flag;
+            }
+        }
     }
   }
 }
