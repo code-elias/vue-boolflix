@@ -3,10 +3,6 @@
     <h1>Replica of a Movie Sharing Website</h1>
     <p>By Elias Mahfuzul Golam</p>
     <p>Project for Boolean S.r.l.</p>
-    <font-awesome-icon :icon="['fas', 'star']" />
-    <font-awesome-icon :icon="['far', 'star']"  />
-    <font-awesome-icon icon="fa-regular fa-star-half-stroke" />
-    <font-awesome-icon :icon="['far', 'star-half-stroke']" />
 
     <HeaderComponent @search="setNewQuery" />
     <MainComponent :moviesData="moviesSearchResults" :tvSeriesData="tvSearchResults" />
