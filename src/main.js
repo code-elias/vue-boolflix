@@ -19,7 +19,8 @@ library.add(farStar, fasStar, faStarHalfStroke)
 // Add FontAwesome component
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
-/* ***************************************** */
+
+/* ************************************************************ */
 /* VUE CONFIG */
 Vue.config.productionTip = false
 

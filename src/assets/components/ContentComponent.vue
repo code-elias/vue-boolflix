@@ -33,6 +33,7 @@ export default {
 
   data() {
     return {
+      RATING_MAX: 10,
       TOTAL_STARS: 5,
 
       FLAG_API: {
@@ -48,8 +49,7 @@ export default {
   },
 
   props: {
-    type: String,
-
+    type: String, // Defines if it's a movie or a TV series
     contentArray: Array,
     // Data Format: Array of Objects (item)
     /*
@@ -67,7 +67,7 @@ export default {
         poster_path: String(url),
 
         vote_average: Number,
-        vote_count:
+        vote_count: Number,
       }
     ] 
     */
@@ -86,7 +86,7 @@ export default {
     },
 
     getRating(media) {
-      let num = parseFloat(media.vote_average) / (10 / this.TOTAL_STARS);
+      let num = parseFloat(media.vote_average) / (this.RATING_MAX / this.TOTAL_STARS);
       let rating = parseInt(num % 10);
       
       num -= parseInt(num % 10);

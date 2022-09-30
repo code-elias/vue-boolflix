@@ -10,7 +10,7 @@
 <!-- SCRIPT -->
 <script>
 // 
-import ContentComponent from "../utilityComponents/ContentComponent.vue";
+import ContentComponent from "@/assets/components/ContentComponent.vue";
 
 export default {
     name: "MainComponent",
