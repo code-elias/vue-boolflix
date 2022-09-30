@@ -6,8 +6,9 @@
     <StarRatingComponent :rating="cardRating" :maxStars="TOTAL_STARS" /> 
     <LanguageFlagComponent :language="card.original_language" />
 
-    <img class="poster" :src="posterSrc" alt="Poster" @error="imageNotFoundError($event)" />
-    
+    <div class="posterContainer">
+        <img class="poster" :src="posterSrc" alt="Poster" @error="imageNotFoundError($event)" />    
+    </div>
   </article>
 </template>
 
@@ -35,6 +36,8 @@ export default {
   
           vote_average: Number,
           vote_count: Number,
+
+          original_language: String,
         }*/
     },
 
@@ -92,6 +95,12 @@ export default {
         }
     },
     // END COMPUTED
+
+    methods: {
+        imageNotFoundError(event) {
+            console.warn("Image not found: ", event);
+        }
+    },
 
     components: {
         StarRatingComponent,

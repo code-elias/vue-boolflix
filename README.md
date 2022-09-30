@@ -57,6 +57,10 @@ Create the actual Web Layout
 
 Add Movie Cover and Stars (rating)
 
+#### 0.4.12: Caught image not found error
+
+* (TODO) Need to implement fix with alternative images
+
 #### 0.4.11: Implemented InteractiveCardComponent
 
 #### 0.4.10: Added additional subcomponents for better scalability
@@ -121,24 +125,29 @@ Dynamically retrieve movies and tv series through a search function
 #### 0.1.1: Created Vue Cli Project
 
 ## Project setup
-```
+
+```bash
 npm install
 ```
 
 ### Compiles and hot-reloads for development
-```
+
+```bash
 npm run serve
 ```
 
 ### Compiles and minifies for production
-```
+
+```bash
 npm run build
 ```
 
 ### Lints and fixes files
-```
+
+```bash
 npm run lint
 ```
 
 ### Customize configuration
+
 See [Configuration Reference](https://cli.vuejs.org/config/).
