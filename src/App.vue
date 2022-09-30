@@ -3,6 +3,7 @@
     <h1>Replica of a Movie Sharing Website</h1>
     <p>By Elias Mahfuzul Golam</p>
     <p>Project for Boolean S.r.l.</p>
+    
 
     <HeaderComponent @search="setNewQuery" />
     <MainComponent :moviesData="moviesSearchResults" :tvShowsData="tvSearchResults" />

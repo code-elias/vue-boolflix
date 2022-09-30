@@ -57,6 +57,11 @@ Create the actual Web Layout
 
 Add Movie Cover and Stars (rating)
 
+#### 0.4.10: Added additional subcomponents for better scalability
+
+* Added InteractiveCardComponent for each movie/tv series
+* Added a rating system for each item
+
 #### 0.4.9: Changed some variable names for better readability
 
 #### 0.4.8: Added TOTAL_STARS constant for easy changes
