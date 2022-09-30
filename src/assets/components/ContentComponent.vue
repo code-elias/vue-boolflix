@@ -2,11 +2,15 @@
   <section>
     <h2>{{ type }}</h2>
 
+    <!-- Card Container -->
     <ul>
+        <!-- Turn each of these into a Card -->
         <li v-for="item in contentArray" :key="item.id"
         >
             <p>{{ getTitle(item) }}</p>
             <p>{{ getVotes(item) }}</p>
+
+            <!-- Turn Star Rating into a component -->
             <div class="rating">
               <font-awesome-icon v-for="star in getStars(item).stars" :key="'Star' + star"
                 :icon="['fas', 'star']"  
@@ -14,13 +18,16 @@
               <font-awesome-icon v-for="halfStar in getStars(item).halfStars" :key="'Half' + halfStar"
                 :icon="['far', 'star-half-stroke']" 
               />
-
               <font-awesome-icon v-for="empty in getStars(item).empty" :key="'Empty' + empty"
                 :icon="['far', 'star']" 
               />
             </div>
+
+            <!-- Turn Flag Image into a component -->
             <img :src="getFlagSrc(item)" alt="">
-            <img class="poster" :src="getPosterSrc(item)" alt="Poster">
+
+            <!-- Turn Poster into a component -->
+            <img class="poster" :src="getPosterSrc(item)" alt="Poster" @error="imageNotFoundError($event)">
         </li>
     </ul>
   </section>
@@ -74,6 +81,7 @@ export default {
   },
 
   methods: {
+    // Turn these into Computed Properties
     getTitle(media) {
       if(media.title) return media.title;
       if(media.original_title) return media.original_title;
@@ -142,6 +150,10 @@ export default {
               return flag;
           }
       }
+    },
+
+    imageNotFoundError(event) {
+      console.warn("Image Not Found:", event);
     }
   }
 }

@@ -57,6 +57,8 @@ Create the actual Web Layout
 
 Add Movie Cover and Stars (rating)
 
+#### 0.4.9: Changed some variable names for better readability
+
 #### 0.4.8: Added TOTAL_STARS constant for easy changes
 
 * TOTAL_STARS in data allows to easily switch between 5 and 10 stars by simply modifying one attribute

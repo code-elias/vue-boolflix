@@ -5,7 +5,7 @@
     <p>Project for Boolean S.r.l.</p>
 
     <HeaderComponent @search="setNewQuery" />
-    <MainComponent :moviesData="moviesSearchResults" :tvSeriesData="tvSearchResults" />
+    <MainComponent :moviesData="moviesSearchResults" :tvShowsData="tvSearchResults" />
     <FooterComponent />
   </div>
 </template>
@@ -59,16 +59,7 @@ export default {
       search(query, type) {
         axios
           .get(this.getQuery(query, type))
-          .then((response) => {
-            const searchResults = this.processSearchData(response);
-
-            if (type === 'tv') {
-              this.tvSearchResults = searchResults;
-            }
-            else if (type === 'movie') {
-              this.moviesSearchResults = searchResults;
-            }
-          })
+          .then((response) => { this.processSearchData(response, type); })
           .catch(error => {
             console.warn("Error Found while searching Movies:", error);
         });
@@ -85,10 +76,17 @@ export default {
           : base_url + trending + api_key;
       },
 
-      processSearchData({status, data}) {
+      processSearchData({status, data}, type) {
         if (status !== 200) return; // Guard Statement
-        return data.results;
 
+        if (type === 'tv') {
+          this.tvSearchResults = data.results;
+        }
+        else if (type === 'movie') {
+          this.moviesSearchResults = data.results;
+        }
+
+        return data.results;
         // Query Format:
         /* 
         data: 

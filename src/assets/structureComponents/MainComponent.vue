@@ -1,7 +1,7 @@
 <template>
   <main>
     <ContentComponent :contentArray="moviesToDisplay" :type="'Movies'" />
-    <ContentComponent :contentArray="seriesToDisplay" :type="'TV Series'" />
+    <ContentComponent :contentArray="tvShowsToDisplay" :type="'TV Shows'" />
   </main>
   
 </template>
@@ -16,7 +16,7 @@ export default {
     name: "MainComponent",
     props: {
         moviesData: Array,
-        tvSeriesData: Array,
+        tvShowsData: Array,
     },
 
     computed: {
@@ -25,9 +25,9 @@ export default {
         return this.moviesData;
       },
 
-      seriesToDisplay() {
-        console.log("NEW SET OF Tv Series", this.tvSeriesData);
-        return this.tvSeriesData;
+      tvShowsToDisplay() {
+        console.log("NEW SET OF Tv Series", this.tvShowsData);
+        return this.tvShowsData;
       }
     },
     
