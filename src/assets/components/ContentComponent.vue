@@ -86,11 +86,12 @@ export default {
     },
 
     getRating(media) {
-      let num = parseFloat(media.vote_average) / (this.RATING_MAX / this.TOTAL_STARS);
-      let rating = parseInt(num % 10);
-      
-      num -= parseInt(num % 10);
+      // Format the vote into the format we like based on TOTAL_STARS
+      let num = media.vote_average / (this.RATING_MAX / this.TOTAL_STARS);
+      let rating = parseInt(num); // We start by taking the integer part of num
+      num -= parseInt(num);
 
+      // We then round the decimal part
       if(num <= 0.25) {
         num = 0;
       }
