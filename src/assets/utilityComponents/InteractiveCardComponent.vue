@@ -4,12 +4,18 @@
     <p>{{ cardVotes }}</p>
 
     <StarRatingComponent :rating="cardRating" :maxStars="TOTAL_STARS" /> 
+    <LanguageFlagComponent :language="card.original_language" />
+
+    <img class="poster" :src="posterSrc" alt="Poster" @error="imageNotFoundError($event)" />
+    
   </article>
 </template>
 
 
 <script>
 import StarRatingComponent from './StarRatingComponent.vue';
+import LanguageFlagComponent from './LanguageFlagComponent.vue';
+
 export default {
     name: "InteractiveCard",
     props: {
@@ -36,9 +42,15 @@ export default {
         return {
             RATING_MAX: 10,
             TOTAL_STARS: 5,
+
+            TMDB_IMG_API: {
+                base_url: "https://image.tmdb.org/t/p/",
+                file_size: "w500/",
+            }
         };
     },
     
+    // COMPUTED PROPERTIES
     computed: {
         cardTitle() {
             const { title, original_title, name, original_name } = this.card;
@@ -72,11 +84,18 @@ export default {
 
             rating += num;
             return rating;
+        }, 
+
+        posterSrc() {
+            const { base_url, file_size } = this.TMDB_IMG_API;
+            return base_url + file_size + this.card.poster_path;
         }
     },
+    // END COMPUTED
 
-    components: { 
-        StarRatingComponent 
+    components: {
+        StarRatingComponent,
+        LanguageFlagComponent
     }
 }
 </script>
@@ -84,5 +103,7 @@ export default {
 
 
 <style lang="scss" scoped>
-
+.poster {
+    width: 200px;
+}
 </style>

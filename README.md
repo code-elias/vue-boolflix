@@ -1,8 +1,8 @@
-# vue-boolfix
+# Movie Streaming App
 
 ## Project
 
-This is a replica of a movie sharing website similar to Netflix or Disney+.
+This is a replica of a movie streaming website similar to Netflix or Disney+.
 
 ### Analysis
 
@@ -56,6 +56,8 @@ Create the actual Web Layout
 ### 0.4: MileStone 3
 
 Add Movie Cover and Stars (rating)
+
+#### 0.4.11: Implemented InteractiveCardComponent
 
 #### 0.4.10: Added additional subcomponents for better scalability
 
