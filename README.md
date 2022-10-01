@@ -1,6 +1,6 @@
 # Movie Streaming App
 
-## Project
+## Educational Project
 
 This is a replica of a movie streaming website similar to Netflix or Disney+.
 
