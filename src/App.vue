@@ -32,7 +32,7 @@ export default {
 
         // API
         TMDB_API: {
-          api_key: "api_key=6e12bf2de8d8ec96f13c4937cd273f69",
+          api_key: process.env.VUE_APP_APIKEY,
 
           base_url: "https://api.themoviedb.org/3/",
           trending_movies: "trending/movie/week?",

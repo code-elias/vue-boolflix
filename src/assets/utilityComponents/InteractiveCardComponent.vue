@@ -9,6 +9,7 @@
     <div class="posterContainer">
         <img class="poster" :src="posterSrc" alt="Poster" @error="imageNotFoundError($event)" />    
     </div>
+    
   </article>
 </template>
 
