@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="flex-center">
     <UserProfile class="user-profile" />
     <SearchBar @searchText="searching" />
   </header>
@@ -31,5 +31,12 @@ export default {
 
 <!-- STYLE -->
 <style lang="scss" scoped>
+@import '@/assets/stylesheets/variables.scss';
+  
+header {
+  // FLEX CONTAINER
+  justify-content: space-between;
 
+  padding: $_size-6 $_size-5;
+}
 </style>

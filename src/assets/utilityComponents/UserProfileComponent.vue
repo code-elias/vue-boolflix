@@ -19,9 +19,9 @@ export default {
     },
 
     components: {
-    ProfilePictureComponent,
-    UserInfoComponent
-}
+        ProfilePictureComponent,
+        UserInfoComponent
+    }
 }
 </script>
 
