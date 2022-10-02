@@ -1,7 +1,7 @@
 <template>
   <section>
     <!-- Card Container -->
-    <ul class="card-container wide-container flex-center scroll-snap">
+    <ul class="card-container flex-center" :class="cardDisplayStyle">
         <!-- Turn each of these into a Card -->
         <li v-for="item in contentArray" :key="item.id" class="card-item"
         >
@@ -27,13 +27,25 @@ export default {
         TMDB_IMG_API: {
           base_url: "https://image.tmdb.org/t/p/",
           file_size: "w500/",
-        }
+        },
       };
     },
     props: {
+        searchPage: Boolean,
+
         type: String,
         contentArray: Array,
         // Data Format: Array of Objects (item)
+    },
+
+    computed: {
+      cardDisplayStyle() {
+        if(this.searchPage === true) {
+          return ['searchPage', 'container'];
+        } else {
+          return ['explorePage', 'wide-container', 'scroll-snap'];
+        }
+      }
     },
 
     components: { 
@@ -49,25 +61,48 @@ export default {
 
  
 .card-container {
-  overflow-x: scroll;
+  $gap: $_size-1;
+  gap: $gap;
 
-  .card-item {
-    min-inline-size: 45%;
+  &.searchPage {
+    justify-content: space-around;
+    flex-wrap: wrap;
 
-    @media only screen and (min-width: $sm-breakpoint) {
-      min-inline-size: 38%;
+    .card-item {
+      width: calc(100% / 2 - $gap);
+
+      @media only screen and (min-width: $sm-breakpoint) {
+        width: calc(100% / 3 - $gap);
+      }
+      
+      @media only screen and (min-width: $md-breakpoint) {
+        width: calc(100% / 4 - $gap);
+      }
     }
+  }
 
-    @media only screen and (min-width: $md-breakpoint) {
-      min-inline-size: 23%;
-    }
 
-    @media only screen and (min-width: $lg-breakpoint) {
-      min-inline-size: 13%;
-    }
+  &.explorePage {
+    overflow-x: scroll;
 
-    @media only screen and (min-width: $xl-breakpoint) {
-      min-inline-size: 7%;
+    .card-item {
+      min-inline-size: 45%;
+
+      @media only screen and (min-width: $sm-breakpoint) {
+        min-inline-size: 38%;
+      }
+
+      @media only screen and (min-width: $md-breakpoint) {
+        min-inline-size: 23%;
+      }
+
+      @media only screen and (min-width: $lg-breakpoint) {
+        min-inline-size: 13%;
+      }
+
+      @media only screen and (min-width: $xl-breakpoint) {
+        min-inline-size: 11%;
+      }
     }
   }
 }

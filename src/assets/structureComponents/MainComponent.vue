@@ -18,6 +18,7 @@
       <ContentComponent 
         :contentArray="media.data"
         :format="media.format"
+        :searchPage="activeQuery"
       />
     </div>
   </main>
@@ -38,6 +39,8 @@ export default {
     props: {
         moviesData: Array,
         tvShowsData: Array,
+
+        activeQuery: Boolean,
     },
 
     data() {

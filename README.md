@@ -53,6 +53,10 @@ The third milestone requires adding the cover/poster for each movie and display 
 
 Create the actual Web Layout
 
+#### 0.5.8: Added variation between explore page and search page
+
+#### 0.5.7: Added basic ContentComponent layout
+
 #### 0.5.6: Added simple scroll snap to content
 
 #### 0.5.5: Added basic MainComponent layout

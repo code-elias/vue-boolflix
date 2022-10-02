@@ -7,7 +7,7 @@
     </section>
     
     <HeaderComponent @search="setNewQuery" />
-    <MainComponent :moviesData="moviesSearchResults" :tvShowsData="tvSearchResults" />
+    <MainComponent :moviesData="moviesSearchResults" :tvShowsData="tvSearchResults" :activeQuery="activeQueries"/>
     <FooterComponent />
   </div>
 </template>
@@ -31,6 +31,8 @@ export default {
         moviesSearchResults: [],
         tvSearchResults: [],
 
+        activeQueries: false,
+
         // API
         TMDB_API: {
           api_key: process.env.VUE_APP_APIKEY,
@@ -49,6 +51,8 @@ export default {
 
     methods: {
       setNewQuery(query) {
+        this.activeQueries = query ? true : false;
+
         // Query new searches
         this.search(query, 'movie');
         this.search(query, 'tv');
