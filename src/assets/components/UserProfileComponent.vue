@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import ProfilePictureComponent from './ProfilePictureComponent.vue';
-import UserInfoComponent from './UserInfoComponent.vue';
+import ProfilePictureComponent from '@/assets/utilityComponents/ProfilePictureComponent.vue';
+import UserInfoComponent from '@/assets/utilityComponents/UserInfoComponent.vue';
 
 
 export default {

@@ -37,12 +37,6 @@ a:is([class], [id]) {
     color: inherit;
 }
 
-/* Making it easier to work with Images */
-img,
-picture {
-    max-width: 100%;
-}
-
 /* Font Inheritance */
 input,
 button,

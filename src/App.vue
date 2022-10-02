@@ -45,11 +45,7 @@ export default {
           language: "&language=it IT"
         }
       }
-    },
-
-    created() {
-      this.setNewQuery(); // Initialize Default Loading
-    },
+    }, 
 
     methods: {
       setNewQuery(query) {
@@ -82,6 +78,7 @@ export default {
         if (status !== 200) return; // Guard Statement
 
         if (type === 'tv') {
+          if (data.results === this.tvSearchResults) return;
           this.tvSearchResults = data.results;
         }
         else if (type === 'movie') {
@@ -100,6 +97,10 @@ export default {
         }
         */
       }
+    },
+
+    created() {
+      this.setNewQuery(); // Initialize Default Loading
     },
 
     components: { 

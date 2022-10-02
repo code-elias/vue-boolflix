@@ -1,7 +1,5 @@
 @import "variables.scss";
 
-
-
 // ARIA-ACCESSIBILITY
 .visually-hidden {
     position: absolute;
@@ -23,7 +21,42 @@
     overflow: hidden;
 }
 
+// CONTAINERS
+@mixin container-config {
+    max-width: 100%;
+    min-width: 100%;
+    margin: 0 auto;
+}
+
+.container {
+    @include container-config();
+    padding: $_size-6 $_size-5;
+
+    @media only screen and (min-width: $lg-breakpoint) {
+        padding: $_size-5;
+        max-width: $max-w-container;
+    }
+}
+
+.wide-container {
+    @include container-config();
+}
+
 // Flex
 .flex-center {
     @include flex-center();
+}
+
+// NAV
+.nav-item {
+    cursor: pointer;
+}
+
+// SCROLLER 
+.scroll-snap {
+    scroll-snap-type: inline mandatory;
+}
+
+.scroll-snap > * {
+    scroll-snap-align: center;
 }

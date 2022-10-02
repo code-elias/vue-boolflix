@@ -1,5 +1,5 @@
 <template>
-  <article>
+  <article class="flex-center">
     <h3>{{ cardTitle }}</h3>
     <p>{{ cardVotes }}</p>
 
@@ -113,7 +113,24 @@ export default {
 
 
 <style lang="scss" scoped>
-.poster {
-    width: 200px;
+@import '@/assets/stylesheets/variables.scss';
+
+article {
+    flex-direction: column;
+    width: 100%;
+}
+
+.posterContainer {
+    // Shape
+    border-radius: $_size-1;
+    overflow: hidden;
+
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
 }
 </style>

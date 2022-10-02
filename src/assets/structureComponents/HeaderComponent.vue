@@ -1,5 +1,5 @@
 <template>
-  <header class="flex-center">
+  <header class="flex-center container">
     <UserProfile class="user-profile" />
     <SearchBar @searchText="searching" />
   </header>
@@ -9,7 +9,7 @@
 <!-- SCRIPT -->
 <script>
 import SearchBar from "@/assets/utilityComponents/SearchBar_ExpandibleComponent.vue";
-import UserProfile from "@/assets/utilityComponents/UserProfileComponent.vue";
+import UserProfile from "@/assets/components/UserProfileComponent.vue";
 
 
 export default {
@@ -36,7 +36,5 @@ export default {
 header {
   // FLEX CONTAINER
   justify-content: space-between;
-
-  padding: $_size-6 $_size-5;
 }
 </style>
