@@ -1,0 +1,51 @@
+/* Color Scheme */
+// BRAND COLORS
+$clr-primary-orange: rgb(245, 126, 0);
+$clr-primary-red: rgb(215, 40, 40);
+$clr-primary-dark: rgb(8, 18, 27);
+$clr-primary-light: rgb(255, 255, 255);
+
+$clr-dark-blue: rgb(18, 35, 78);
+
+// GRADIENTS
+$dark-gradient: linear-gradient(
+    rgba($clr-dark-blue, 1),
+    rgba($clr-primary-dark, 1)
+);
+
+/* FONT */
+$ff-fallback: Helvetica, Arial, sans-serif;
+
+// Size
+$fs-1: 2rem;
+$fs-2: 1.6rem;
+$fs-3: 1.5rem;
+$fs-4: 1.25rem;
+$fs-5: .9rem;
+$fs-6: .8rem;
+
+// Weight
+$fw-extra-bold: 800;
+$fw-bold: 600;
+$fw-medium: 400;
+$fw-thin: 300;
+$fw-extra-thin: 100;
+
+/* SIZES */
+$max-w-container: 1000px;
+
+// BREAKPOINTS
+$sm-breakpoint: 576px;
+$md-breakpoint: 768px;
+$lg-breakpoint: 992px;
+$xl-breakpoint: 1200px;
+$xxl-breakpoint: 1400px; 
+
+
+/* SPACING */
+$_size-1: .3rem;
+$_size-2: .6rem;
+$_size-3: .8rem;
+$_size-4: 1rem;
+$_size-5: 1.5rem;
+$_size-6: 2rem;

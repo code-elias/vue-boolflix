@@ -113,5 +113,5 @@ export default {
 <!-- STYLES -->
 <!-- GLOBAL STYLE -->
 <style lang="scss">
-
+@import '@/assets/stylesheets/style.scss'
 </style>

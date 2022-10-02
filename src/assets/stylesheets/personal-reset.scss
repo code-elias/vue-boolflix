@@ -1,0 +1,53 @@
+/* Default Box sizing, margin and padding */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+
+    /* Reduce animation to minimum */
+    @media (prefers-reduced-motion: reduce) {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Set Default layout */
+html:focus-within {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+}
+
+/* Element Defaults */
+:is(ol, ul)[class],
+:is(ol, ul)[id] {
+    list-style: none;
+    list-style-type: none;
+}
+
+a:is([class], [id]) {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Making it easier to work with Images */
+img,
+picture {
+    max-width: 100%;
+}
+
+/* Font Inheritance */
+input,
+button,
+textarea,
+select,
+option {
+    font: inherit;
+}
