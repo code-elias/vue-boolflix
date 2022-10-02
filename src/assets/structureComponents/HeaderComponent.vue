@@ -1,5 +1,6 @@
 <template>
   <header>
+    <UserProfile class="user-profile" />
     <SearchBar @searchText="searching" />
   </header>
 </template>
@@ -8,6 +9,7 @@
 <!-- SCRIPT -->
 <script>
 import SearchBar from "@/assets/utilityComponents/SearchBar_ExpandibleComponent.vue";
+import UserProfile from "@/assets/utilityComponents/UserProfileComponent.vue";
 
 
 export default {
@@ -19,9 +21,10 @@ export default {
         }
     },
       
-    components: { 
-      SearchBar, 
-    }
+    components: {
+    SearchBar,
+    UserProfile
+}
 }
 </script>
 

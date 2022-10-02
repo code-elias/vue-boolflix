@@ -1,10 +1,11 @@
 <template>
   <div id="app">
-    <h1>Replica of a Movie Sharing Website</h1>
-    <p>By Elias Mahfuzul Golam</p>
-    <p>Project for Boolean S.r.l.</p>
+    <section class="page-info visually-hidden">
+      <h1>Replica of a Movie Sharing Website</h1>
+      <p>By Elias Mahfuzul Golam</p>
+      <p>Project for Boolean S.r.l.</p>
+    </section>
     
-
     <HeaderComponent @search="setNewQuery" />
     <MainComponent :moviesData="moviesSearchResults" :tvShowsData="tvSearchResults" />
     <FooterComponent />

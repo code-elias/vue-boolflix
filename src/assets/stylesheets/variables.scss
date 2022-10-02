@@ -49,3 +49,9 @@ $_size-3: .8rem;
 $_size-4: 1rem;
 $_size-5: 1.5rem;
 $_size-6: 2rem;
+
+/* MIXINS */
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+}
