@@ -1,14 +1,11 @@
 <template>
-  <section>
-    <!-- Card Container -->
-    <ul class="card-container flex-center" :class="cardDisplayStyle">
-        <!-- Turn each of these into a Card -->
-        <li v-for="item in contentArray" :key="item.id" class="card-item"
-        >
-          <InteractiveCard  :card="item" />
-        </li>
-    </ul>
-  </section>
+  <!-- Card Container -->
+  <ul class="card-container flex-center scroll-snap" :class="cardDisplayStyle">
+      <InteractiveCard v-for="item in contentArray" :key="item.id"
+        :card="item" 
+        class="card-item"
+      />
+  </ul>
 </template>
 
 <script>
@@ -54,56 +51,74 @@ export default {
 }
 </script>
 
-
 <!-- STYLES: SCSS -->
 <style lang="scss" scoped>
 @import '@/assets/stylesheets/variables.scss';
 
- 
 .card-container {
-  $gap: $_size-1;
-  gap: $gap;
+  // FLEX container
+  $r-gap: $_size-5;
+  $c-gap: $_size-3;
+
+  row-gap: $r-gap;
+  column-gap: $c-gap;
+  align-items: flex-start;
 
   &.searchPage {
-    justify-content: space-around;
+    // FLEX container 
     flex-wrap: wrap;
 
+    // FLEX items
+    @mixin calcCardsPerRow($cardsPerRow) {
+      width: calc(100% / $cardsPerRow - $c-gap);
+    }
+
     .card-item {
-      width: calc(100% / 2 - $gap);
+      @include calcCardsPerRow(2);
 
       @media only screen and (min-width: $sm-breakpoint) {
-        width: calc(100% / 3 - $gap);
+        @include calcCardsPerRow(3);
       }
-      
+
       @media only screen and (min-width: $md-breakpoint) {
-        width: calc(100% / 4 - $gap);
+        @include calcCardsPerRow(4);
+      }
+
+      @media only screen and (min-width: $lg-breakpoint) {
+        @include calcCardsPerRow(6);
       }
     }
   }
 
-
   &.explorePage {
     overflow-x: scroll;
-
+    
+    // FLEX items
+    @mixin calcCardsInWindow($visibleCards) {
+      min-inline-size: calc((100% / $visibleCards - $c-gap) + (100px / $visibleCards)) ;
+    }
     .card-item {
-      min-inline-size: 45%;
+      @include calcCardsInWindow(3);
 
       @media only screen and (min-width: $sm-breakpoint) {
-        min-inline-size: 38%;
+        @include calcCardsInWindow(4);
       }
 
       @media only screen and (min-width: $md-breakpoint) {
-        min-inline-size: 23%;
+        @include calcCardsInWindow(5);
       }
 
       @media only screen and (min-width: $lg-breakpoint) {
-        min-inline-size: 13%;
+        @include calcCardsInWindow(6);
       }
 
       @media only screen and (min-width: $xl-breakpoint) {
-        min-inline-size: 11%;
+        @include calcCardsInWindow(8);
       }
     }
   }
 }
+
+
+
 </style>

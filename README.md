@@ -49,9 +49,21 @@ The third milestone requires adding the cover/poster for each movie and display 
 
 ## VERSIONS
 
+### 0.6: Refactoring
+
+#### 0.6.4: Added small timeout before emitting the search request to improve performance
+
+#### 0.6.3: Added Variable to make sure that the explore page is created only once at the first load of the page
+
+#### 0.6.2: Added more functions in APP.vue that allows for scalability
+
+#### 0.6.1: Removed unnecessary code
+
 ### 0.5: MileStone 4
 
 Create the actual Web Layout
+
+#### 0.5.9: Completed Basic Layout
 
 #### 0.5.8: Added variation between explore page and search page
 

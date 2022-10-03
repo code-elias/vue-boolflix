@@ -1,16 +1,18 @@
 <template>
-  <article class="flex-center">
-    <h3>{{ cardTitle }}</h3>
-    <p>{{ cardVotes }}</p>
+  <li class="flex-center">
+    <h3 class="cardTitle">{{ cardTitle }}</h3>
 
-    <StarRatingComponent :rating="cardRating" :maxStars="TOTAL_STARS" /> 
-    <LanguageFlagComponent :language="card.original_language" />
+    <div class="card">
+        <div class="card-info">    
+            <p>{{ cardVotes }}</p>
 
-    <div class="posterContainer">
+            <StarRatingComponent :rating="cardRating" :maxStars="TOTAL_STARS" /> 
+            <LanguageFlagComponent :language="card.original_language" />
+        </div>
+
         <img class="poster" :src="posterSrc" alt="Poster" @error="imageNotFoundError($event)" />    
     </div>
-    
-  </article>
+</li>
 </template>
 
 
@@ -111,26 +113,97 @@ export default {
 </script>
 
 
-
 <style lang="scss" scoped>
 @import '@/assets/stylesheets/variables.scss';
 
-article {
-    flex-direction: column;
-    width: 100%;
+li {
+    // FLEX container
+    flex-direction: column-reverse;
 }
 
-.posterContainer {
-    // Shape
-    border-radius: $_size-1;
+.card {
+    // POSITION lock for card-info
+    position: relative;
+
+    // Shape and Size
+    width: 100%;
+    aspect-ratio: 1 / 1.5;
+    border-radius: $_size-3;
     overflow: hidden;
 
+    .card-info {
+        // Position
+        position: absolute;
 
-    img {
+        // Content
+        width: 100%;
+        height: 100%;
+        padding: $_size-2;
+
+        
+    }
+
+    .poster {
         width: 100%;
         height: 100%;
         object-fit: cover;
         object-position: center;
     }
+
+    
+        // .poster {
+        //     width: 100%;
+        //     height: 100%;
+        //     object-fit: cover;
+        //     object-position: center;
+        // }
+    
+
+
+    &:hover {
+
+    }
 }
 </style>
+
+<!-- 
+<style lang="scss" scoped>
+@import '@/assets/stylesheets/variables.scss';
+article {
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+}
+
+
+.card-item {
+    // Shape
+    width: 100%;
+    aspect-ratio: 1 / 1.5;
+    border-radius: $_size-1;
+    overflow: hidden;
+
+    position: relative;
+
+    border: 2px solid red;
+
+    .card-info {
+        position: absolute;
+
+        width: 100%;
+        height: 100%;
+
+        
+    }
+
+    .posterContainer {
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+}
+
+
+</style> -->

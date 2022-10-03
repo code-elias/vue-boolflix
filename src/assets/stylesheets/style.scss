@@ -31,5 +31,21 @@ $default-font-settings: $fw-default $fs-default/$f-line-height $ff-default;
 
     // Aesthetics
     background: $dark-gradient;
+
+    scrollbar-width: thin;
+    scrollbar-color: $clr-primary-orange rgba($clr-primary-red, .3);
+
+    &::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba($clr-primary-red, .3);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $clr-primary-orange;
+    }
 }
 

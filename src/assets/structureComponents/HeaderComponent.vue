@@ -15,9 +15,20 @@ import UserProfile from "@/assets/components/UserProfileComponent.vue";
 export default {
     name: "HeaderComponent",
 
+    data() {
+      return {
+        searchInvervalID: undefined,
+        searchInputDelay: 400,
+      }
+    },
+
     methods: {
         searching(inputText) {
+          clearInterval(this.searchInvervalID);
+          
+          this.searchInvervalID = setInterval(() => {
             this.$emit('search', inputText);
+          }, this.searchInputDelay);
         }
     },
       

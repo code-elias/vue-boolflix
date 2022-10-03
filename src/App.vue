@@ -7,7 +7,7 @@
     </section>
     
     <HeaderComponent @search="setNewQuery" />
-    <MainComponent :moviesData="moviesSearchResults" :tvShowsData="tvSearchResults" :activeQuery="activeQueries"/>
+    <MainComponent :mediaData="activeQueries ? searchResults : explorePage" :activeQuery="activeQueries"/>
     <FooterComponent />
   </div>
 </template>
@@ -30,6 +30,8 @@ export default {
       return {
         moviesSearchResults: [],
         tvSearchResults: [],
+        explorePage: [],
+        firstLoad: true,
 
         activeQueries: false,
 
@@ -49,47 +51,64 @@ export default {
       }
     }, 
 
+    computed: {
+      searchResults() {
+        return [this.moviesSearchResults, this.tvSearchResults];
+      }
+    },
+
+    created() {
+      this.search('', 'movie', 'tv'); // Initialize Default Loading
+    },
+
     methods: {
       setNewQuery(query) {
-        this.activeQueries = query ? true : false;
+        this.activeQueries = this.isUserSearching(query) ? true : false;
+        if (this.activeQueries === false) return;
 
         // Query new searches
-        this.search(query, 'movie');
-        this.search(query, 'tv');
+        this.search(query, 'movie', 'tv');
       },
 
-      search(query, type) {
-        axios
-          .get(this.getQuery(query, type))
-          .then((response) => { this.processSearchData(response, type); })
-          .catch(error => {
-            console.warn("Error Found while searching Movies:", error);
-        });
+      search(query, ...arrayOfFormats) {
+        arrayOfFormats.forEach(format => {
+          axios
+            .get(this.getQuery(query, format))
+            .then((response) => { this.processSearchData(response, format); })
+            .catch(error => {
+              console.warn("Error Found while searching Movies:", error);
+          });
+        })
       },
 
       getQuery(query, queryType) {
         const {api_key, base_url, search_query, search_movie, search_tv, trending_movies, trending_tv} = this.TMDB_API;
 
-        const trending = queryType === 'tv' ? trending_tv : trending_movies;
+        if(!this.isUserSearching(query)) {
+          const trending = queryType === 'tv' ? trending_tv : trending_movies;
+          return base_url + trending + api_key;
+        }
+        
         const mediaToSearch = queryType === 'tv' ? search_tv : search_movie;
-
-        return query ? 
-          base_url + mediaToSearch + api_key + search_query + query.toLowerCase()
-          : base_url + trending + api_key;
+        return base_url + mediaToSearch + api_key + search_query + query.toLowerCase();
       },
 
       processSearchData({status, data}, type) {
         if (status !== 200) return; // Guard Statement
-
         if (type === 'tv') {
-          if (data.results === this.tvSearchResults) return;
           this.tvSearchResults = data.results;
         }
         else if (type === 'movie') {
           this.moviesSearchResults = data.results;
         }
 
-        return data.results;
+        if (this.firstLoad) {
+          this.explorePage.push(data.results);
+          console.log("DEBUG - explore page initialized", this.explorePage);
+          if(this.explorePage.length === 2) {
+            this.firstLoad = false;
+          }
+        }
         // Query Format:
         /* 
         data: 
@@ -100,12 +119,18 @@ export default {
           "total_results": Number
         }
         */
+      },
+
+      isUserSearching(query) {  
+        if (query === undefined || query.trim() === '') {
+          return false;
+        } else {
+          return true;
+        }
       }
     },
 
-    created() {
-      this.setNewQuery(); // Initialize Default Loading
-    },
+
 
     components: { 
       HeaderComponent, 
@@ -119,5 +144,6 @@ export default {
 <!-- STYLES -->
 <!-- GLOBAL STYLE -->
 <style lang="scss">
-@import '@/assets/stylesheets/style.scss'
+@import '@/assets/stylesheets/style.scss';
+
 </style>

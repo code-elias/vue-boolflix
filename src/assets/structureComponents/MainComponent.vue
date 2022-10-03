@@ -1,15 +1,6 @@
 <template>
   <main class="wide-container">
-    <nav>
-      <ul class="media-nav flex-center">
-        <li v-for="(format,index) in mediaFormats" :key="format"
-          @click="switchMediaFormat(index)"
-          class="nav-item"  
-        >
-          <h2>{{ format }}</h2>
-        </li>
-      </ul>
-    </nav>
+    <NavBarComponent :navList="mediaFormats" @newNavLink="changeActiveCategory"/>
 
     <div v-for="(media, index) in mediaToDisplay" :key="media.format" 
       v-show="index === activeCategoryIdx"
@@ -30,6 +21,7 @@
 <script>
 // COMPONENTS
 import ContentComponent from "@/assets/components/ContentComponent.vue";
+import NavBarComponent from "../utilityComponents/NavBarComponent.vue";
 
 import Media from "@/myClasses.js";
 
@@ -37,8 +29,7 @@ import Media from "@/myClasses.js";
 export default {
     name: "MainComponent",
     props: {
-        moviesData: Array,
-        tvShowsData: Array,
+        mediaData: Array,
 
         activeQuery: Boolean,
     },
@@ -55,8 +46,8 @@ export default {
     computed: {
       mediaToDisplay() {
         const mediaArr = [];
-        mediaArr.push(new Media("Movies", this.moviesData));
-        mediaArr.push(new Media("TV Series", this.tvShowsData));
+        mediaArr.push(new Media("Movies", this.mediaData[0]));
+        mediaArr.push(new Media("TV Series", this.mediaData[1]));
         mediaArr.push(new Media("Favourites"));
         mediaArr.push(new Media("Discover"));
 
@@ -71,8 +62,8 @@ export default {
           this.mediaFormats.push(media.format);
         });
       },
-
-      switchMediaFormat(index) {
+      
+      changeActiveCategory(index) {
         this.activeCategoryIdx = index;
       }
     },
@@ -81,8 +72,9 @@ export default {
       this.setMediaFormats();
     },
     
-    components: { 
-      ContentComponent 
+    components: {
+      ContentComponent,
+      NavBarComponent
     }
 }
 </script>
